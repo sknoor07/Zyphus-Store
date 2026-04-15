@@ -5,6 +5,7 @@ import { createAdminClient } from "../appwrite/appwrite"
 import { appwriteConfig } from "../appwrite/config";
 import { ID } from "appwrite";
 import { parseStringify } from "@/utils/utils";
+import { cookies } from "next/headers";
 
 type userdetails={
     fullName:string,
@@ -27,7 +28,7 @@ const handleError= (error:unknown,message:string)=>{
     throw new Error(message);
 }
 
-const sendEmailOTP = async(email:string)=>{
+export const sendEmailOTP = async(email:string)=>{
     const {account}= await createAdminClient();
     try{
         const session =await account.createEmailToken(ID.unique(),email);
@@ -57,5 +58,17 @@ export const createAccount = async({userDetails}: {userDetails: userdetails})=>{
         );
     } 
     return parseStringify({accountId})
+}
+
+export const verifySecret= async({accountId,password}:{accountId:string,password:string})=>{
+    try{
+    const {account}= await createAdminClient();
+    const session = await account.createSession(accountId,password);
+    (await cookies()).set("appwrite-session-zyphus-store",session.secret,{httpOnly:true,secure:true,sameSite:"strict",path:"/"});
+
+    return parseStringify({sessionId:session.$id});
+}catch(error){
+        handleError(error,"Failed to verify secret");
+    }
 }
     
