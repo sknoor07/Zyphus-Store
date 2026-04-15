@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { createAccount } from '@/lib/actions/user.actions';
+import OtpModel from './OtpModel';
 
 type FormType= "sign-in"|"sign-up"
 
@@ -61,6 +62,7 @@ const AuthForm = ({type}: {type: FormType}) => {
     }
   }
   return (
+    <>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='auth-form'>
         <h1 className='form-title flex justify-center'>{type === "sign-in" ? "Sign In" : "Sign Up"}</h1>
@@ -110,6 +112,8 @@ const AuthForm = ({type}: {type: FormType}) => {
         
       </form>
     </Form>
+    {accountId&&<OtpModel email={form.getValues("email")} accountId={accountId}/>}
+    </>
   )
 }
 

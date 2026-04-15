@@ -133,7 +133,7 @@
     @apply w-full flex gap-1 sm:gap-2 justify-between !important;
   }
   .shad-otp-slot {
-    @apply text-[40px] font-medium rounded-xl ring-brand shadow-drop-1 text-brand-100 justify-center flex border-2 border-light-300 size-12 md:size-16 gap-5 !important;
+    @apply text-[40px] font-medium rounded-xl ring-brand  text-brand-100 justify-center flex border-2 border-light-300 size-12 md:size-16 gap-5 !important;
   }
 
   .shad-sheet {
@@ -416,4 +416,11 @@
   .thumbnail-image {
     @apply size-full object-cover object-center !important;
   }
+}
+
+:root {
+  --popover: 98.0% 0.0 0.0;
+  --popover-foreground: 20.0% 0.0 0.0;
+  --background: 100.0% 0.0 0.0;
+  --foreground: 10.0% 0.0 0.0;
 }
